@@ -8,15 +8,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="p-10">
-    <h1 class="text-3xl font-bold">Create Account</h1>
-    <form action="/user/signup" method="post" class="flex w-72 flex-col gap-3">
-        <input type="text" class="block border border-black" placeholder="your name" name="name">
-        <input type="text" class="block border border-black" placeholder="your email" name="email">
-        <input type="password" class="block border border-black" placeholder="your password" name="password">
-        <input type="submit" value="Create" class="block border rounded-md bg-cyan-500 border-black border-3">
+<body class="p-10 bg-zinc-900 text-white">
+    <h1 class="text-xl">Create Account</h1>
+    <form action="/user/signup" method="post" class="w-72">
+        <input type="text" class="block border-[1px] border-gray-300 bg-transparent text-sm rounded-md p-2 w-full mb-2 "
+            placeholder="your name" name="name">
+        <input type="text" class="block border-[1px] border-gray-300 bg-transparent text-sm rounded-md p-2 w-full mb-2 "
+            placeholder="create username" name="username">
+        <input type="text" class="block border-[1px] border-gray-300 bg-transparent text-sm rounded-md p-2 w-full mb-2 "
+            placeholder="your email" name="email">
+        <input type="password"
+            class="block border-[1px] border-gray-300 bg-transparent text-sm rounded-md p-2 w-full mb-2 "
+            placeholder="your password" name="password">
+        <button type="submit"
+            class="block border rounded-md bg-sky-500 border-black border-3 text-black px-4 py-1 text-sm font-semibold">Create
+            Account</button>
     </form>
-    <p class="text-xl font-semibold ">Already have an account? <a href="/login">Log in</a></p>
+    <p>Already have an account? <a href="/login" class="text-sky-500">Log in</a></p>
 </body>
 
 </html>

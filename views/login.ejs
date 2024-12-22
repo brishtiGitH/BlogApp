@@ -8,14 +8,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="p-10">
-    <h1 class="text-3xl font-bold">Log in to your Account</h1>
-    <form action="/user/login" method="post" class="flex w-72 flex-col gap-3">
-        <input type="text" class="block border border-black" placeholder="your email" name="email">
-        <input type="password" class="block border border-black" placeholder="your password" name="password">
-        <input type="submit" value="Log in" class="block border rounded-md bg-cyan-500 border-black border-3">
+<body class="p-10 bg-zinc-900 text-white">
+    <h1 class="text-xl mb-2">Log in to your Account</h1>
+    <form action="/user/login" method="post" class="w-72 ">
+        <input type="text" class="block border-[1px] border-gray-300 bg-transparent text-sm rounded-md p-2 w-full mb-2 "
+            placeholder="username" name="username">
+        <input type="password"
+            class="block border-[1px] border-gray-300 bg-transparent text-sm rounded-md p-2 w-full mb-2"
+            placeholder="password" name="password">
+        <button type="submit"
+            class="block border rounded-md bg-sky-500 border-black border-3 text-black px-4 py-1 font-semibold">Login</button>
     </form>
-    <p class="text-xl font-semibold ">New Member? <a href="/">Sign Up</a></p>
+    <p>New Member? <a href="/" class="text-sky-500">Sign Up</a></p>
 
 </body>
 
