@@ -8,7 +8,7 @@ const createNewUser = async (req, res) => {
         bcrypt.hash(password, 10, async (err, hash) => {
             if (err) throw err;
 
-            console.log("hash: ", hash);
+            // console.log("hash: ", hash);
             const createdUser = await User.create({ name, email, password: hash, username });
 
             //log in user after their account creation
@@ -49,7 +49,7 @@ async function authenticateUser(req, res, next) {
     const token = req.cookies.jwtToken;
     if (!token) return res.render('login', { isLoggedin: false });
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-    console.log(decoded);
+    // console.log(decoded);
     const user = await User.findOne({ _id: decoded.userId });
     req.user = user;
 

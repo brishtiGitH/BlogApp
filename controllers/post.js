@@ -17,4 +17,12 @@ const createNewPost = async (req, res) => {
     res.redirect('/profile');
 }
 
-module.exports = { createNewPost };
+const updatePost = async (req, res) => {
+    let { content } = req.body;
+    const post = await Post.findOneAndUpdate({ _id: req.params.id }, {
+        content
+    })
+    console.log(post)
+    res.redirect('/profile');
+}
+module.exports = { createNewPost, updatePost };

@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const { createNewUser, loginUser, authenticateUser } = require('./controllers/user');
 const postRouter = require('./routes/post');
 const User = require('./models/user');
+const Post = require('./models/post');
 
 mongoose.connect('mongodb://localhost:27017/authtestapp')
     .then(() => console.log("mongodb connected!"))
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 
 app.use('/post', postRouter);
+
 
 app.get('/profile', authenticateUser, async (req, res) => {
     let loggedInUser = await User.findOne({ _id: req.user._id }).populate('posts');
@@ -35,8 +37,16 @@ app.get('/login', (req, res) => {
 app.post('/user/signup', createNewUser);
 app.post('/user/login', loginUser);
 
+app.get('/edit/:id', authenticateUser, async (req, res) => {
+    const postId = req.params.id;
+    const post = await Post.findOne({ _id: postId });
+    res.render('editPost', { post });
+})
 
-
+app.get('/logout', (req, res) => {
+    res.clearCookie('jwtToken');
+    res.redirect('/login');
+})
 app.use((err, req, res, next) => {
     console.log(err.stack);
     res.status(500).send("internal server error.")
