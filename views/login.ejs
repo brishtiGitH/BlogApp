@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="p-10">
+    <h1 class="text-3xl font-bold">Log in to your Account</h1>
+    <form action="/user/login" method="post" class="flex w-72 flex-col gap-3">
+        <input type="text" class="block border border-black" placeholder="your email" name="email">
+        <input type="password" class="block border border-black" placeholder="your password" name="password">
+        <input type="submit" value="Log in" class="block border rounded-md bg-cyan-500 border-black border-3">
+    </form>
+    <p class="text-xl font-semibold ">New Member? <a href="/">Sign Up</a></p>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="p-10">
+    <h1 class="text-3xl font-bold">Create Account</h1>
+    <form action="/user/signup" method="post" class="flex w-72 flex-col gap-3">
+        <input type="text" class="block border border-black" placeholder="your name" name="name">
+        <input type="text" class="block border border-black" placeholder="your email" name="email">
+        <input type="password" class="block border border-black" placeholder="your password" name="password">
+        <input type="submit" value="Create" class="block border rounded-md bg-cyan-500 border-black border-3">
+    </form>
+    <p class="text-xl font-semibold ">Already have an account? <a href="/login">Log in</a></p>
+</body>
+
+</html>
