@@ -37,7 +37,7 @@ const handleLikePost = async (req, res) => {
         if (currentPost.likes.includes(req.user._id)) {
             let i = currentPost.likes.indexOf(req.user._id);
             currentPost.likes.splice(i, 1);
-            currentPost.save();
+            await currentPost.save();
 
             return res.redirect('/user/feed');
         }
