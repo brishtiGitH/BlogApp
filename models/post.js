@@ -6,6 +6,12 @@ const postSchema = new mongoose.Schema({
         ref: "users"
     },
     content: String,
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }
+    ]
 }, { timestamps: true });
 
 const Post = new mongoose.model('posts', postSchema);

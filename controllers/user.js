@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Post = require('../models/post');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -14,7 +15,7 @@ const createNewUser = async (req, res) => {
             //log in user after their account creation
             const token = jwt.sign({ email, userId: createdUser._id }, process.env.ACCESS_TOKEN);
             res.cookie('jwtToken', token);
-            res.redirect('/profile');
+            res.redirect('/user/profile');
         })
     } catch (err) {
         console.log(err.stack)
@@ -33,7 +34,7 @@ const loginUser = async (req, res) => {
             if (result) {
                 const token = jwt.sign({ email: user.email, userId: user._id }, process.env.ACCESS_TOKEN);
                 res.cookie('jwtToken', token);
-                return res.redirect('/profile');
+                return res.redirect('/user/profile');
             } else {
                 res.send('invalid credentials.')
             }
@@ -49,12 +50,20 @@ async function authenticateUser(req, res, next) {
     const token = req.cookies.jwtToken;
     if (!token) return res.render('login', { isLoggedin: false });
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-    // console.log(decoded);
+
     const user = await User.findOne({ _id: decoded.userId });
     req.user = user;
 
     next();
 
 }
+const showProfile = async (req, res) => {
+    let loggedInUser = await User.findOne({ _id: req.user._id }).populate('posts');
+    res.render('profile', { user: loggedInUser });
+}
+const showFeed = async (req, res) => {
+    let posts = await Post.find({}).populate('user');
 
-module.exports = { createNewUser, loginUser, authenticateUser }
+    res.render('feed', { posts, user: req.user });
+}
+module.exports = { createNewUser, loginUser, authenticateUser, showProfile, showFeed };

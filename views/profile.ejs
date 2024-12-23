@@ -11,7 +11,12 @@
 <body class="bg-zinc-900 text-white p-10">
     <div class="flex justify-between">
         <h1 class="text-xl">Profile</h1>
-        <a href="/logout" class="logout bg-yellow-500 text-black font-semibold p-1 rounded-md">Logout</a>
+        <div class="links">
+            <a href="/user/feed"
+                class="logout bg-sky-500 text-black font-semibold py-2 text-sm px-5 mr-2 rounded-md">Feed</a>
+            <a href="/logout"
+                class="logout bg-yellow-500 text-black font-semibold text-sm py-2 px-5 rounded-md">Logout</a>
+        </div>
 
     </div>
     <div class="form">
@@ -20,7 +25,8 @@
         <form action="/post/create" method="post">
             <textarea class="border bg-transparent w-2/5 block mb-2 p-2 rounded-md resize-none text-sm" name="content"
                 id="content" rows="3" cols="40" placeholder="What's on your mind?"></textarea>
-            <button type="submit" class="bg-cyan-700 font-semibold text-sm p-1 rounded-md ">Create Post</button>
+            <button type="submit" class="bg-cyan-700 font-semibold text-black text-sm p-1 rounded-md ">Create
+                Post</button>
         </form>
     </div>
 
@@ -30,15 +36,16 @@
     <p class="mt-5">Your posts.</p>
 
     <div id="posts" class="w-2/5 ">
-        <% user.posts.forEach(post=> { %>
+        <% user.posts?.forEach(post=> { %>
             <div class="post border-[1px] border-slate-600 p-2 mb-2 rounded-md">
                 <p>@<%= user.username %>
                 </p>
-                <p class="text-sm text-gray-500">
+                <p class=" text-gray-500">
                     <%= post.content %>
                 </p>
-                <a href="" class="text-red-500">Like</a>
+                <a href="/post/like/<%= post._id %>" class="text-sky-500">Like</a>
                 <a href="/edit/<%= post._id %>" class="text-blue">Edit</a>
+                <a href="/post/delete/<%= post._id %>" class="text-red-500">Delete</a>
             </div>
             <% }) %>
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-900 text-white p-10 flex justify-center w-full h-full items-center">
+    <div class="container w-[80%] h-full ">
+        <div class="flex justify-between">
+            <h1 class="text-2xl">For You <%= user.name %>!🤸
+            </h1>
+            <a href="/user/profile" class="bg-sky-600 text-black font-semibold rounded-md py-2 px-5">Profile 👤</a>
+        </div>
+        <div class="posts mt-5">
+
+            <% posts.forEach(post=> { %>
+                <div class="post border-[1px] border-slate-600 p-2 mb-2 rounded-md">
+                    <p class="text-gray-300">
+                        @<%= post.user.username %>
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        <%= post.user.name %>
+                    </p>
+                    <p>
+                        <%= post.content %>
+                    </p>
+                    <p class="text-gray-500 text-sm">
+                        <%= post.likes.length %> likes
+                    </p>
+                    <a href="/post/like/<%= post._id %>" class="text-sky-500">
+                        <% if (post.likes.includes(user._id)) { %>
+                            Unlike
+                            <% }else{%>
+                                Like
+                                <% } %>
+                    </a>
+                </div>
+                <% }) %>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
