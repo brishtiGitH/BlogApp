@@ -48,10 +48,13 @@ const logoutUser = (req, res) => {
     res.redirect('/login');
 }
 const showProfile = async (req, res) => {
+    if (!req.user) return res.redirect('/login');
+
     let loggedInUser = await User.findOne({ _id: req.user?._id }).populate('posts');
     res.render('profile', { user: loggedInUser });
 }
 const showFeed = async (req, res) => {
+    if (!req.user) return res.redirect('/login');
     let posts = await Post.find({}).populate('user');
 
     res.render('feed', { posts, user: req.user });
