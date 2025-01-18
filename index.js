@@ -8,7 +8,7 @@ const path = require('path');
 const User = require('./models/user');
 const Post = require('./models/post');
 const upload = require('./config/multer');
-const { authenticateUser } = require('./controllers/user')
+const checkAuthentication = require('./middlewares/auth');
 
 mongoose.connect('mongodb://localhost:27017/blogapp')
     .then(() => console.log("mongodb connected!"))
@@ -23,6 +23,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(checkAuthentication('jwtToken'));
 
 
 app.use('/post', postRouter);
@@ -34,31 +35,25 @@ app.get('/', (req, res) => {
 })
 app.get('/login', (req, res) => {
 
-    res.render('login', { isLoggedin: true });
+    res.render('login');
 })
 app.get('/upload', (req, res) => {
     res.render('upload');
 })
 
-app.post('/profile/upload', authenticateUser, upload.single('profilePic'), async (req, res) => {
+app.post('/profile/upload', upload.single('profilePic'), async (req, res) => {
     await User.findOneAndUpdate({ _id: req.user._id }, { profilePic: req.file.filename });
     res.redirect('/user/profile');
 })
 
-app.get('/edit/:id', authenticateUser, async (req, res) => {
-    const postId = req.params.id;
-    const post = await Post.findOne({ _id: postId });
-    res.render('editPost', { post });
-})
 
-app.get('/logout', (req, res) => {
-    res.clearCookie('jwtToken');
-    res.redirect('/login');
-})
+
+
+app.get('/test', checkAuthentication);
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
-    res.status(500).send("internal server error.")
+    res.status(500).send("internal server error.-error handler")
 })
 
 app.listen(3000, () => console.log("server started!"))

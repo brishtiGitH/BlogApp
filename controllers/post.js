@@ -16,7 +16,11 @@ const createNewPost = async (req, res) => {
 
     res.redirect('/user/profile');
 }
-
+const readPost = async (req, res) => {
+    const postId = req.params.id;
+    const post = await Post.findOne({ _id: postId });
+    res.render('editPost', { post });
+}
 const updatePost = async (req, res) => {
     let { content } = req.body;
     const post = await Post.findOneAndUpdate({ _id: req.params.id }, {
@@ -54,4 +58,4 @@ const handleLikePost = async (req, res) => {
     }
 
 }
-module.exports = { createNewPost, updatePost, deletePost, handleLikePost };
+module.exports = { createNewPost, readPost, updatePost, deletePost, handleLikePost };

@@ -1,11 +1,7 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    username: {
+    fullName: {
         type: String,
         required: true
     },
@@ -27,6 +23,11 @@ const userSchema = new mongoose.Schema({
     profilePic: {
         type: String,
         default: "default.png"
+    },
+    role: {
+        type: String,
+        enum: ['USER', 'ADMIN'],
+        default: "USER"
     }
 })
 

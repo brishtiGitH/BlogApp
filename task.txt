@@ -1,0 +1,4 @@
+1. separation of middlewares
+2. add blog
+3. add comment
+4. configure cloud mongodb

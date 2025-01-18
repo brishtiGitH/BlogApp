@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>profile</title>
+    <title>Profile Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -14,7 +14,7 @@
         <div class="links">
             <a href="/user/feed"
                 class="logout bg-sky-500 text-black font-semibold py-2 text-sm px-5 mr-2 rounded-md">Feed</a>
-            <a href="/logout"
+            <a href="/user/logout"
                 class="logout bg-yellow-500 text-black font-semibold text-sm py-2 px-5 rounded-md">Logout</a>
         </div>
 
@@ -22,10 +22,10 @@
     <div class="form">
         <div class="pfp flex justify-start gap-2 my-3">
             <div class="profilePic w-10 h-10 rounded-md overflow-hidden">
-                <img src="/images/profilePics/<%= user.profilePic %>" class="w-full h-full object-cover" alt="">
+                <img src="/images/profilePics/<%= user?.profilePic %>" class="w-full h-full object-cover" alt="">
             </div>
             <p class="text-2xl">
-                <%= user.name %>
+                <%= user?.fullName %>
             </p>
             <a href="/upload" class="bg-zinc-700 font-semibold text-zinc-300 text-sm py-1 px-3 rounded-md ">Change
                 Profile Picture</a>
@@ -41,25 +41,28 @@
     </div>
 
 
+    <% if (user.posts.length>0) { %>
+
+        <p class="mt-5">Your posts.</p>
+
+        <div id="posts" class="w-2/5 ">
+
+            <% user.posts?.forEach(post=> { %>
+                <div class="post border-[1px] border-slate-600 p-2 mb-2 rounded-md">
+                    <p>@<%= user.fullName %>
+                    </p>
+                    <p class=" text-gray-500">
+                        <%= post.content %>
+                    </p>
+
+                    <a href="/post/edit/<%= post._id %>" class="text-blue">Edit</a>
+                    <a href="/post/delete/<%= post._id %>" class="text-red-500">Delete</a>
+                </div>
+                <% }) %>
+                    <% } %>
 
 
-    <p class="mt-5">Your posts.</p>
-
-    <div id="posts" class="w-2/5 ">
-        <% user.posts?.forEach(post=> { %>
-            <div class="post border-[1px] border-slate-600 p-2 mb-2 rounded-md">
-                <p>@<%= user.username %>
-                </p>
-                <p class=" text-gray-500">
-                    <%= post.content %>
-                </p>
-
-                <a href="/edit/<%= post._id %>" class="text-blue">Edit</a>
-                <a href="/post/delete/<%= post._id %>" class="text-red-500">Delete</a>
-            </div>
-            <% }) %>
-
-    </div>
+        </div>
 </body>
 
 </html>
